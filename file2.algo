@@ -1,0 +1,32 @@
+BEGIN
+
+    FUNCTION dot_product(v1, v2)
+        IF LENGTH(v1) ≠ LENGTH(v2) THEN
+            PRINT "Vectors must have the same dimension"
+            RETURN ERROR
+        ENDIF
+
+        SET ps = 0  # Initialize dot product result
+
+        # Compute dot product using a nested loop
+        FOR i FROM 0 TO LENGTH(v1) - 1 DO
+            ps = ps + (v1[i] * v2[i])
+        ENDFOR
+
+        RETURN ps
+    END FUNCTION
+
+    FUNCTION are_orthogonal(v1, v2)
+        RETURN dot_product(v1, v2) == 0
+    END FUNCTION
+
+
+    FOR EACH (v1, v2) IN vector_pairs DO
+        IF are_orthogonal(v1, v2) THEN
+            PRINT "Vectors", v1, "and", v2, "are Orthogonal"
+        ELSE
+            PRINT "Vectors", v1, "and", v2, "are Not Orthogonal"
+        ENDIF
+    ENDFOR
+
+END
